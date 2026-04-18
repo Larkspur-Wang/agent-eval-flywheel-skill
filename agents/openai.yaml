@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Eval Flywheel"
+  short_description: "Design double-loop evals for AI agents"
+  default_prompt: "Use $agent-eval-flywheel to define goals, rubrics, seed evals, and a double-loop improvement plan for this agent."

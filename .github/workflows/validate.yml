@@ -1,0 +1,47 @@
+name: Validate skill
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate SKILL.md frontmatter
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          skill = Path("SKILL.md")
+          text = skill.read_text(encoding="utf-8")
+          assert text.startswith("---\n"), "SKILL.md must start with YAML frontmatter"
+          end = text.find("\n---\n", 4)
+          assert end != -1, "SKILL.md frontmatter must be closed"
+          frontmatter = text[4:end]
+          assert "name: agent-eval-flywheel" in frontmatter, "missing skill name"
+          assert "description:" in frontmatter, "missing skill description"
+          assert "[TODO" not in text, "SKILL.md still contains TODO markers"
+          print("SKILL.md frontmatter looks good")
+          PY
+
+      - name: Smoke test eval bundle scaffold
+        run: |
+          python3 scripts/init_eval_bundle.py /tmp/agent-eval-flywheel-demo \
+            --agent-name DemoAgent \
+            --domain demo \
+            --force
+          test -f /tmp/agent-eval-flywheel-demo/charter.md
+          test -f /tmp/agent-eval-flywheel-demo/rubric.yaml
+          test -f /tmp/agent-eval-flywheel-demo/seed-cases.yaml
+          test -f /tmp/agent-eval-flywheel-demo/regression-cases.yaml
+          test -f /tmp/agent-eval-flywheel-demo/error-taxonomy.md
+          test -f /tmp/agent-eval-flywheel-demo/results.tsv
