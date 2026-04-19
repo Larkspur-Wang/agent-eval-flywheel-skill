@@ -91,6 +91,7 @@ results.tsv
 SKILL.md                         # Main Codex skill instructions
 agents/openai.yaml               # Skill UI metadata
 references/                      # Detailed references loaded only when needed
+references/better-harness/       # Harness hill-climbing notes inspired by LangChain's better-harness
 scripts/init_eval_bundle.py       # Eval bundle scaffold helper
 .github/                         # Issue templates and PR template
 ```
@@ -114,6 +115,7 @@ If you want live CI in your own copy, move it to:
 This skill is inspired by:
 
 - [karpathy/autoresearch](https://github.com/karpathy/autoresearch), especially the idea of a fixed evaluation harness, narrow mutable surface, baseline-first iteration, and a run ledger.
+- [LangChain's better-harness](https://github.com/langchain-ai/deepagents/tree/main/examples/better-harness) and the companion article on harness hill-climbing with evals, especially the ideas of editable harness surfaces, train-vs-holdout topology, and trace-backed iteration.
 - [OpenAI eval guidance](https://openai.com/index/evals-drive-next-chapter-of-ai/) and [agent evals documentation](https://developers.openai.com/api/docs/guides/agent-evals).
 - [Anthropic's Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents), especially the preference for simple, composable agent patterns.
 
@@ -206,6 +208,7 @@ results.tsv
 这个 skill 参考了：
 
 - [karpathy/autoresearch](https://github.com/karpathy/autoresearch) 的固定评价面、窄修改面、baseline-first、run ledger 思想。
+- [LangChain 的 better-harness](https://github.com/langchain-ai/deepagents/tree/main/examples/better-harness) 及其相关文章，特别是可编辑 harness surface、train/holdout 拓扑、trace 驱动迭代这些做法。
 - [OpenAI eval 文章](https://openai.com/index/evals-drive-next-chapter-of-ai/) 和 [agent evals 文档](https://developers.openai.com/api/docs/guides/agent-evals)。
 - [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) 中关于简单、可组合 agent pattern 的思路。
 

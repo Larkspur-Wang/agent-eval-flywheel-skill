@@ -126,6 +126,7 @@ Each case should include:
 
 - stable `id`
 - source, for example `real-ticket`, `pm-example`, or `incident`
+- behavior `stratum`, for example `tool_use`, `retrieval`, `planning`, `conversation`, or `policy`
 - persona
 - scenario
 - user task
@@ -134,12 +135,14 @@ Each case should include:
 - forbidden behaviors
 - expected end state
 - tags
+- optional `trace_refs` for local artifacts or trace links that explain the case origin
 
 Example:
 
 ```yaml
 - id: "refund-happy-path-001"
   source: "real-ticket"
+  stratum: "tool_use"
   persona:
     role: "impatient customer"
     traits:
@@ -165,6 +168,8 @@ Example:
     - "Reveal unrelated order details."
     - "Skip the policy explanation."
   expected_outcome: "Order is verified, refund is submitted, and the next step is clear."
+  trace_refs:
+    - "runs/2026-04-19/baseline/refund-happy-path-001.json"
   tags:
     - "happy-path"
     - "tool-use"
@@ -181,6 +186,12 @@ Use the same schema as `seed-cases.yaml`, but only store cases that escaped earl
 - grader blind spots
 
 Every regression case should include the failure date and source in `notes` or `tags`.
+
+Optional but useful fields:
+
+- `stratum` to keep regression coverage balanced against the seed set
+- `trace_refs` to link back to the source evidence
+- `case_role` when a mature bundle needs finer routing, for example `optimization_sensitive`, `regression_critical`, `smoke`, or `historical`
 
 ## `error-taxonomy.md`
 
@@ -231,6 +242,25 @@ Recommended status values:
 - `crash`
 
 Use one row per run. Do not silently edit earlier rows. Add a new row for re-runs.
+
+## Case topology guidance
+
+When running hill-climbing loops, keep the reusable bundle small but structured:
+
+- use a small optimization slice for frequent diagnosis
+- keep a matched holdout slice by stratum for keep/discard decisions
+- use a broader scorecard only at baseline/final or milestone checkpoints
+
+This topology can live as metadata alongside the bundle even if the cases are stored in separate files.
+
+## Case lifecycle guidance
+
+Do not treat all old cases the same:
+
+- keep optimization-sensitive cases small and current
+- preserve regression-critical cases even after they become "easy"
+- retain a smoke layer for minimum behavior guarantees
+- archive historical cases if they matter for audits or long-range comparison
 
 ## Minimal scoring discipline
 
