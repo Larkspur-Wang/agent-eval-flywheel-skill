@@ -92,7 +92,21 @@ SKILL.md                         # Main Codex skill instructions
 agents/openai.yaml               # Skill UI metadata
 references/                      # Detailed references loaded only when needed
 scripts/init_eval_bundle.py       # Eval bundle scaffold helper
-.github/                         # Issue templates and validation workflow
+.github/                         # Issue templates and PR template
+```
+
+### CI template
+
+The repository includes a ready-to-enable GitHub Actions validator at:
+
+```text
+references/github-actions/validate.yml.example
+```
+
+If you want live CI in your own copy, move it to:
+
+```text
+.github/workflows/validate.yml
 ```
 
 ### Influences
@@ -204,6 +218,20 @@ python3 scripts/init_eval_bundle.py /tmp/agent-eval-flywheel-demo \
   --agent-name DemoAgent \
   --domain demo \
   --force
+```
+
+### CI 模板
+
+仓库里已经附带一个可直接启用的 GitHub Actions 校验模板：
+
+```text
+references/github-actions/validate.yml.example
+```
+
+如果你希望在自己的仓库里开启 CI，把它移动到：
+
+```text
+.github/workflows/validate.yml
 ```
 
 ### License

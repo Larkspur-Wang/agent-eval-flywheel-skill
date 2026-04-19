@@ -21,6 +21,14 @@ python3 scripts/init_eval_bundle.py /tmp/agent-eval-flywheel-demo \
   --force
 ```
 
+If you want GitHub Actions in your fork, copy
+`references/github-actions/validate.yml.example` to
+`.github/workflows/validate.yml`.
+
 ## 中文说明
 
 欢迎改进这个 Skill。请尽量保持 `SKILL.md` 精炼，把大段案例放到 `references/` 中。任何改动都应该服务于一个目标：帮助开发者更快建立“目标系统优化环”和“评测系统进化环”。
+
+如果你希望在自己的仓库里启用 GitHub Actions，可以把
+`references/github-actions/validate.yml.example` 复制到
+`.github/workflows/validate.yml`。
